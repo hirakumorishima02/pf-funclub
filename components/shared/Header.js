@@ -1,20 +1,37 @@
 import React from 'react';
 import Link from 'next/link';
+import Button from '@material-ui/core/Button';
 
 class Header extends React.Component {
     render() {
         return (
-            <React.Fragment>
+            <div className="header">
                 <Link href='/'>
-                    <a>サイト名</a>
+                    <a>Fan Club</a>
                 </Link>
                 <Link href='/signup'>
-                    <a>SIGN UP</a>
+                    <Button variant="contained" color="primary">
+                        SIGN UP
+                    </Button>
                 </Link>
                 <Link href='/signin'>
-                    <a>SIGN IN</a>
+                    <Button variant="contained" color="secondary">
+                        SIGN IN
+                    </Button>
                 </Link>
-            </React.Fragment>
+                <form className="serch-form">
+                    <input type="text" placeholder="Serch Artists" />
+                    <button type="submit">Search</button>
+                </form>
+                <style jsx>{`
+                    .header {
+                        height: 80px;
+                    }
+                    .serch-form {
+                        display: inline-block;
+                    }
+                `}</style>
+            </div>
         )
     }
 }
