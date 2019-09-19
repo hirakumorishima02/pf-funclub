@@ -9,7 +9,7 @@ const EditMyPage = () => (
                 <label for="body">自己紹介文</label><br />
                 <textarea type="text" name="body" />
             </div>
-            <button type="submit">編集完了</button>
+            <button type="submit">アカウント情報の編集完了</button>
         <style jsx>{`
             .post-forms {
                 width: 80%;
