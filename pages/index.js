@@ -15,8 +15,7 @@ HomePage.getInitialProps = async ({ req, query }) => {
   const json = await res.json()
   return json
 }
-
-function HomePage({ posts, page, pageCount }) {
+function HomePage({ posts }) {
   return (
     <>
       <ul>
@@ -24,25 +23,12 @@ function HomePage({ posts, page, pageCount }) {
           <li className="post" key={p.id}>
             <Link href={`/post?id=${p.id}`}>
               <a>
-                <img src={p.avatar} />
-                <span>{p.name}</span>
+                <span>{p.title}</span>
               </a>
             </Link>
           </li>
         ))}
       </ul>
-      <nav>
-        {page > 1 && (
-          <Link href={`/?page=${page - 1}&limit=9`}>
-            <a>Previous</a>
-          </Link>
-        )}
-        {page < pageCount && (
-          <Link href={`/?page=${page + 1}&limit=9`}>
-            <a className="next">Next</a>
-          </Link>
-        )}
-      </nav>
     </>
   )
 }

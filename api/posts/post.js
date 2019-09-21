@@ -7,5 +7,5 @@ module.exports = async (req, res) => {
     FROM posts
     WHERE id = ${req.query.id}
   `)
-  res.status(200).json({ profile })
+  res.status(200).json({ post })
 }
