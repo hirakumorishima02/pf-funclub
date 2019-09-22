@@ -1,13 +1,12 @@
-import { loadFirebase } from '../lib/db'
+import { db } from '../lib/db';
 import React from 'react'
 
  export default class Posts extends React.Component {
   static async getInitialProps() {
     // db.jsのfirebaseのDB接続ファンクション
-    let firebase = await loadFirebase()
     // DBのpostsコレクション内を全て取得した結果 = result
     let result = await new Promise((resolve, reject) => {
-      firebase.firestore().collection('posts')
+      db.collection('posts')
       .get()
       .then(snapshot => {
         let data = []
