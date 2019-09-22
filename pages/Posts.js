@@ -18,15 +18,18 @@ import React from 'react'
             }, doc.data())
           )
         })
-        // console.log(data)
         resolve(data)
       }).catch(error => {
         reject([])
       })
     })
-    console.log(result)
     return {posts: result}
   }
+
+  handleDelete = (id) => {
+    console.log(id)
+  }
+
   render() {
     const posts = this.props.posts
     return (
@@ -39,6 +42,7 @@ import React from 'react'
                         <p>
                             {post.body}
                         </p>
+                        <button onClick={this.handleDelete.bind(this, post.id)}>削除</button>
                     </div>
                     )}
             <style jsx>{`
