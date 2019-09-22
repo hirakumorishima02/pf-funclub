@@ -1,5 +1,4 @@
 import { loadFirebase } from '../lib/db';
-// import { Form, Input, Button } from 'antd';
 import React from 'react';
 import firebase from 'firebase';
 
@@ -12,10 +11,9 @@ var config = {
     messagingSenderId: "866039919067",
     appId: "1:866039919067:web:25df27d9d882d89aa937fe"
   };
-  if (!firebase.apps.length) {
+if (!firebase.apps.length) {
     var app = firebase.initializeApp(config);
- }
-
+}
 var db = firebase.firestore(app);
 
 class CreatePost extends React.Component {
@@ -26,20 +24,11 @@ class CreatePost extends React.Component {
             body: ''
         };
     }
-
-    // registerPost = async (evt) => {
-    //     evt.preventDefault();
-    //     const { title, body } = this.state;
-    //     const postRef = loadFirebase.ref('posts');
-    //     const postId = await postRef.push({ title, body }).key;
-    //     this.props.history.push(`/post/${postId}`);
-    // }
     registerPost = async (evt) => {
         evt.preventDefault();
         db.collection("posts").add({
-            name: "Los Angeles",
-            state: "CA",
-            country: "USA"
+            title: this.state.title,
+            state: this.state.body,
         })
         .then(function() {
             console.log("Document successfully written!");
@@ -65,7 +54,7 @@ class CreatePost extends React.Component {
                     <input name="title" value={this.state.title} onChange={this.onChangeTitle} /><br/>
                     <label htmlFor="body">本文</label><br/>
                     <textarea name="body" value={this.state.body} onChange={this.onChangeBody}></textarea><br/>
-                    <button htmlType="submit">投稿</button>
+                    <button type="submit">投稿</button>
                 </form>
                 <style jsx>{`
                 .post-forms {
