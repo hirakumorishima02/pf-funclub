@@ -3,8 +3,6 @@ import React from 'react'
 
  export default class Posts extends React.Component {
   static async getInitialProps() {
-    // db.jsのfirebaseのDB接続ファンクション
-    // DBのpostsコレクション内を全て取得した結果 = result
     let result = await new Promise((resolve, reject) => {
       db.collection('posts')
       .get()
@@ -26,7 +24,14 @@ import React from 'react'
   }
 
   handleDelete = (id) => {
-    console.log(id)
+    db.collection('posts')
+    .doc(id)
+    .delete()
+    .then(function() {
+      console.log("Document successfully deleted!");
+    }).catch(function(error) {
+      console.error("Error removing document: ", error);
+    });
   }
 
   render() {
