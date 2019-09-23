@@ -6,7 +6,7 @@ const Contact = () => (
             <input type="text" name="name" />
         </div>
         <div>
-            <label for="mailaddress">メールアドレス</label><br />
+            <label for="email">メールアドレス</label><br />
             <input type="text" name="mailaddress" />
         </div>
         <div>
