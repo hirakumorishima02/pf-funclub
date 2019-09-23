@@ -1,4 +1,6 @@
 import { db } from '../lib/db';
+import Header from '../components/shared/Header';
+import Footer from '../components/shared/Footer';
 import React from 'react';
 
  class CreatePost extends React.Component {
@@ -30,28 +32,32 @@ import React from 'react';
     }
      render() {
         return (
-            <div className="post-forms">
-                <form onSubmit={this.registerPost}>
-                    <label htmlFor="title">タイトル</label><br/>
-                    <input name="title" value={this.state.title} onChange={this.onChangeTitle} /><br/>
-                    <label htmlFor="body">本文</label><br/>
-                    <textarea name="body" value={this.state.body} onChange={this.onChangeBody}></textarea><br/>
-                    <button type="submit">投稿</button>
-                </form>
+            <React.Fragment>
+                <Header />
+                <div className="post-forms">
+                    <form onSubmit={this.registerPost}>
+                        <label htmlFor="title">タイトル</label><br/>
+                        <input name="title" value={this.state.title} onChange={this.onChangeTitle} /><br/>
+                        <label htmlFor="body">本文</label><br/>
+                        <textarea name="body" value={this.state.body} onChange={this.onChangeBody}></textarea><br/>
+                        <button type="submit">投稿</button>
+                    </form>
+                    <Footer />
+                </div>
                 <style jsx>{`
-                .post-forms {
-                    width: 80%;
-                    height: 50%;
-                    margin: 0 auto;
-                }
-                input, textarea {
-                    width: 70%;
-                }
-                textarea {
-                    height: 100px;
-                }
-            `}</style>
-            </div>
+                    .post-forms {
+                        width: 80%;
+                        height: 50%;
+                        margin: 0 auto;
+                    }
+                    input, textarea {
+                        width: 70%;
+                    }
+                    textarea {
+                        height: 100px;
+                    }
+                `}</style>
+            </React.Fragment>
         )
     }
 }
