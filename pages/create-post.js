@@ -15,7 +15,7 @@ import React from 'react';
         evt.preventDefault();
         db.collection("posts").add({
             title: this.state.title,
-            state: this.state.body,
+            body: this.state.body,
         })
         .then(function() {
             console.log("Document successfully written!");

@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -26,18 +27,24 @@ export default function ArtistsGridList() {
                 {/* アーティスト画像の表示 */}
                 <div className={classes.popularArtists}>
                     <GridList className={classes.gridList} cols={2.5}>
-                        <GridListTile>
-                            <img src="../static/popular-artist-img.jpg" />
-                            <GridListTileBar title={"Test"} />
-                        </GridListTile>
-                        <GridListTile>
-                            <img src="../static/popular-artist-img.jpg" />
-                            <GridListTileBar title={"Test"} />
-                        </GridListTile>
-                        <GridListTile>
-                            <img src="../static/popular-artist-img.jpg" />
-                            <GridListTileBar title={"Test"} />
-                        </GridListTile>
+                            <GridListTile>
+                                <Link href="/detail">
+                                <img src="../static/popular-artist-img.jpg" />
+                                </Link>
+                                <GridListTileBar title={"Test"} />
+                            </GridListTile>
+                            <GridListTile>
+                                <Link href="/detail">
+                                <img src="../static/popular-artist-img.jpg" />
+                                </Link>
+                                <GridListTileBar title={"Test"} />
+                            </GridListTile>
+                            <GridListTile>
+                                <Link href="/detail">
+                                <img src="../static/popular-artist-img.jpg" />
+                                </Link>
+                                <GridListTileBar title={"Test"} />
+                            </GridListTile>
                     </GridList>
                 </div>
             </div>

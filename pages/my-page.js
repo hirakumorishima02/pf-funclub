@@ -1,6 +1,7 @@
 import Header from '../components/shared/Header';
 import Footer from '../components/shared/Footer';
 import React from 'react';
+import Link from 'next/link';
 
 const MyPage = () => (
     <React.Fragment>
@@ -21,7 +22,9 @@ const MyPage = () => (
                 <li>〇〇のために頑張る会</li><button>解約</button>
                 <li>FC 〇〇</li><button>解約</button>
             </ul>
-            <button>アカウント情報の編集</button>
+
+                <button>アカウント情報の編集</button>
+
         </div>
         <Footer />
         <style jsx>{`

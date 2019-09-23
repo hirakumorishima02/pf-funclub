@@ -5,7 +5,7 @@ class Footer extends React.Component {
     render() {
         return (
             <div className="footer">
-                <Link href='/site-rules'>
+                <Link href='/site-rule'>
                     <a>サイト規約</a>
                 </Link>
                 <Link href='/contact'>
