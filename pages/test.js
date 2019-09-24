@@ -3,6 +3,7 @@ import Link from 'next/link';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import { db } from '../lib/db';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Test = ({artistName}) => {
+const Test = ({fanPages}) => {
     const classes = useStyles();
     return (
         <div>
@@ -43,9 +44,9 @@ const Test = ({artistName}) => {
             </div>
             );
         }
-Test.getInitialProps = () => {
-    const fanPages = this.props.fanPages
-    let result = new Promise((resolve, reject) => {
+Test.getInitialProps = async() => {
+    let result = await 
+      // awaitする
         db.collection('fanPages')
         .get()
         .then(snapshot => {
@@ -57,11 +58,12 @@ Test.getInitialProps = () => {
               }, doc.data())
             )
           })
-          resolve(data)
+          // 48行目のresultにdataが入る
+          return data
         }).catch(error => {
-          reject([])
+          // 48行目のresultにdataが入る
+          return []
         })
-      })
       return {fanPages: result}
 }
 
