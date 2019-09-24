@@ -16,7 +16,7 @@ class MakeFunPage extends React.Component {
     }
     handleMakeFanPage = async (evt) => {
         evt.preventDefault();
-        db.collection("fan-page").add({
+        db.collection("fanPages").add({
             pageName: this.state.pageName,
             artistName: this.state.artistName,
             body: this.state.body,
