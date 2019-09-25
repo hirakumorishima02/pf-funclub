@@ -13,7 +13,6 @@ export default class Detail extends React.Component {
             .get()
             .then(function(doc) {
                 if (doc.exists) {
-                    // console.log(doc.data());
                     return doc.data();
                 } else {
                     console.log('not exists');
@@ -27,7 +26,6 @@ export default class Detail extends React.Component {
 
       render() {
           const detail = this.props.detail;
-          console.log(detail);
         return (
             <React.Fragment>
                 <Header />
