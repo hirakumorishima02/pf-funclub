@@ -1,19 +1,15 @@
 import { db } from '../../lib/db';
-import Header from '../../components/shared/Header';
-import Footer from '../../components/shared/Footer';
 import React from 'react';
 
 export default class Detail extends React.Component {
     static async getInitialProps({query}) {
-        // URLクエリパラメータ取得
-        // console.log(query.detail)
+        console.log(query);
         let result = await 
             db.collection("fanPages")
             .doc(query.detail)
             .get()
             .then(function(doc) {
                 if (doc.exists) {
-                    // console.log(doc.data());
                     return doc.data();
                 } else {
                     console.log('not exists');
@@ -27,32 +23,19 @@ export default class Detail extends React.Component {
 
       render() {
           const detail = this.props.detail;
-          console.log(detail);
         return (
             <React.Fragment>
-                <Header />
                 <div>
-                    <h3>{detail.artistName}</h3>
+                    <h1>{detail.artistName}</h1>
                     <p>
-                        ファンクラブの説明です。　ファンクラブの説明です。　ファンクラブの説明です。　
-                        ファンクラブの説明です。　ファンクラブの説明です。　ファンクラブの説明です。　
-                        ファンクラブの説明です。　ファンクラブの説明です。　ファンクラブの説明です。　
-                        ファンクラブの説明です。　ファンクラブの説明です。　ファンクラブの説明です。　
+                        {detail.body}
                     </p>
-                    <img src="../static/fan-img.png" className="fan-img" />
-                    <button>入会</button>
+                    <ul>
+                        <li>{detail.category}</li>
+                        <li>{detail.monthlyFee}</li>
+                        <li>{detail.pageName}</li>
+                    </ul>
                 </div>
-                <Footer />
-                <style jsx>{`
-                    div {
-                        margin: 0 auto;
-                        width: 80%;
-                        height: 80%;
-                    }
-                    .fan-img {
-                        display: block;
-                    }
-                `}</style>
             </React.Fragment>
           );
       }
