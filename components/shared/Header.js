@@ -9,6 +9,12 @@ class Header extends React.Component {
                 <Link href='/'>
                     <a>Fan Club</a>
                 </Link>
+                <Link href='/make-fan-page'>
+                    <a>Fan Clubの作成</a>
+                </Link>
+                <Link href='/my-page'>
+                    <a>マイページ</a>
+                </Link>
                 <Link href='/signup'>
                     <Button variant="contained" color="primary">
                         SIGN UP
@@ -21,7 +27,9 @@ class Header extends React.Component {
                 </Link>
                 <form className="serch-form">
                     <input type="text" placeholder="Serch Artists" />
-                    <button type="submit">Search</button>
+                    <Link href="/SearchResult">
+                        <button type="submit">Search</button>
+                    </Link>
                 </form>
                 <style jsx>{`
                     .header {

@@ -1,19 +1,27 @@
+import Header from '../components/shared/Header';
+import Footer from '../components/shared/Footer';
+import React from 'react';
+
 const Contact = () => (
-    <div>
-        <h2>お問い合わせ</h2>
+    <React.Fragment>
         <div>
-            <label for="name">お名前</label><br />
-            <input type="text" name="name" />
+            <Header />
+            <h2>お問い合わせ</h2>
+            <div>
+                <label for="name">お名前</label><br />
+                <input type="text" name="name" />
+            </div>
+            <div>
+                <label for="email">メールアドレス</label><br />
+                <input type="text" name="mailaddress" />
+            </div>
+            <div>
+                <label for="body">お問い合わせ内容</label><br />
+                <textarea type="text" name="body" />
+            </div>
+            <button type="submit">送信</button>
+            <Footer />
         </div>
-        <div>
-            <label for="email">メールアドレス</label><br />
-            <input type="text" name="mailaddress" />
-        </div>
-        <div>
-            <label for="body">お問い合わせ内容</label><br />
-            <textarea type="text" name="body" />
-        </div>
-        <button type="submit">送信</button>
         <style jsx>{`
             .post-forms {
                 width: 80%;
@@ -27,7 +35,7 @@ const Contact = () => (
                 height: 100px;
             }
         `}</style>
-    </div>
+    </React.Fragment>
 );
 
 export default Contact;
