@@ -1,6 +1,10 @@
 import withAuth from "../lib/helpers/withAuth";
 import React from 'react';
 import { firebase } from "../lib/db";
+import Header from '../components/shared/Header';
+import Footer from '../components/shared/Footer';
+import Link from 'next/link';
+
 
 class MyPage extends React.Component {
     render() {

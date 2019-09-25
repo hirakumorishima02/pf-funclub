@@ -46,7 +46,9 @@ class Header extends React.Component {
                     </Button>
                 <form className="serch-form">
                     <input type="text" placeholder="Serch Artists" />
-                    <button type="submit">Search</button>
+                    <Link href="/SearchResult">
+                        <button type="submit">Search</button>
+                    </Link>
                 </form>
                 <style jsx>{`
                     .header {

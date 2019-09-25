@@ -1,4 +1,6 @@
 import { db } from '../lib/db';
+import Header from '../components/shared/Header';
+import Footer from '../components/shared/Footer';
 import React from 'react'
 
  export default class Posts extends React.Component {
@@ -37,27 +39,31 @@ import React from 'react'
   render() {
     const posts = this.props.posts
     return (
-        <React.Fragment>
-                {posts.map(post =>
-                    <div className="post" key={post.id}>
-                        <h2>
-                            {post.title}
-                        </h2>
-                        <p>
-                            {post.body}
-                        </p>
-                        <button onClick={this.handleDelete.bind(this, post.id)}>削除</button>
-                    </div>
-                    )}
-            <style jsx>{`
-            .post {
-                width: 40%;
-                border: 1px solid black;
-                background-color: gray;
-                margin-bottom: 10px;
-            }
-            `}</style>
-        </React.Fragment>
+      <React.Fragment>
+        <Header />
+          <div>
+            {posts.map(post =>
+              <div className="post" key={post.id}>
+                <h2>
+                  {post.title}
+                </h2>
+                <p>
+                  {post.body}
+                </p>
+                <button onClick={this.handleDelete.bind(this, post.id)}>削除</button>
+              </div>
+            )}
+          </div>
+        <Footer />
+        <style jsx>{`
+          .post {
+            width: 40%;
+            border: 1px solid black;
+            background-color: gray;
+            margin-bottom: 10px;
+          }
+        `}</style>
+      </React.Fragment>
     );
   }
 }
