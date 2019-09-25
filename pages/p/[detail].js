@@ -6,40 +6,33 @@ import React from 'react';
 export default class Detail extends React.Component {
     static async getInitialProps({query}) {
         // URLクエリパラメータ取得
-        console.log(query.detail)
-        let result = await new Promise((resolve, reject) => {
+        // console.log(query.detail)
+        let result = await 
             db.collection("fanPages")
-            .doc("JNTwv1d5W0g1yXQr667j")
+            .doc(query.detail)
             .get()
-            .then(snapshot => {
-              let data = []
-              snapshot.forEach((doc) => {
-                data.push(
-                  Object.assign({
-                    id: doc.id
-                  }, doc.data())
-                )
-              })
-              resolve(data)
+            .then(function(doc) {
+                if (doc.exists) {
+                    // console.log(doc.data());
+                    return doc.data();
+                } else {
+                    console.log('not exists');
+                }
             }).catch(error => {
                 console.log(error)
-              reject([])
+                return []
             })
-          })
           return {detail: result}
         }
 
       render() {
+          const detail = this.props.detail;
+          console.log(detail);
         return (
             <React.Fragment>
                 <Header />
                 <div>
-                    {/* {fanPageRef.map(ref =>
-                    <h3>{ref.artistName}</h3> // test1と出力
-                    <p>{ref.body}</p> // test1と出力
-                    <p>Category:{ref.category}</p> // singerと出力
-                    （以下略)Z
-                     )} */}
+                    <h3>{detail.artistName}</h3>
                     <p>
                         ファンクラブの説明です。　ファンクラブの説明です。　ファンクラブの説明です。　
                         ファンクラブの説明です。　ファンクラブの説明です。　ファンクラブの説明です。　
