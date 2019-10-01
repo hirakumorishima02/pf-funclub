@@ -30,11 +30,13 @@ import React from 'react';
      onChangeBody = (evt) => {
         this.setState({ body: evt.target.value });
     }
+
      render() {
         return (
             <React.Fragment>
                 <Header />
                 <div className="post-forms">
+                    <h2>新規投稿</h2>
                     <form onSubmit={this.registerPost}>
                         <label htmlFor="title">タイトル</label><br/>
                         <input name="title" value={this.state.title} onChange={this.onChangeTitle} /><br/>

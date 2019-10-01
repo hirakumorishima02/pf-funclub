@@ -2,6 +2,7 @@ import { db } from '../lib/db';
 import React  from 'react';
 import Header from '../components/shared/Header';
 import Footer from '../components/shared/Footer';
+import Link from 'next/link';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -35,6 +36,9 @@ const Posts = ({posts}) => {
   return (
     <>
       <Header />
+        <Link href='/create-post'>
+          <a>新規投稿</a>
+        </Link>
         <div>
           {posts.map(post =>
             <Card className={classes.card} key={post.id}>
