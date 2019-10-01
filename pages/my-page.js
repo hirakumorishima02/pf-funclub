@@ -1,43 +1,82 @@
-import withAuth from "../lib/helpers/withAuth";
-import React from 'react';
 import { firebase } from "../lib/db";
-import Header from '../components/shared/Header';
-import Footer from '../components/shared/Footer';
-import Link from 'next/link';
+import withAuth     from "../lib/helpers/withAuth";
+
+import React        from 'react';
+
+import Header       from '../components/shared/Header';
+import Footer       from '../components/shared/Footer';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Table          from '@material-ui/core/Table';
+import TableBody      from '@material-ui/core/TableBody';
+import TableCell      from '@material-ui/core/TableCell';
+import TableHead      from '@material-ui/core/TableHead';
+import TableRow       from '@material-ui/core/TableRow';
 
 
-class MyPage extends React.Component {
-    render() {
-        const user = firebase.auth().currentUser;
-        console.log(user);
-        return(
-            <div>
-            <h2>アカウント情報</h2>
-            <h4>アカウント名</h4>
-            {user.displayName}
-            <h4>メールアドレス</h4>
-            <p>
-            {user.email}　
-            </p>
-            <img src={user.photoURL} />
-            <h4>登録中のファンページ</h4>
-            <ul>
-                <li>〇〇ファンクラブ</li><button>解約</button>
-                <li>〇〇のために頑張る会</li><button>解約</button>
-                <li>FC 〇〇</li><button>解約</button>
-            </ul>
-            <button>アカウント情報の編集</button>
+const useStyles = makeStyles(theme => ({
+    root: {
+      width: '100%',
+      marginTop: theme.spacing(3),
+      overflowX: 'auto',
+    },
+    table: {
+      minWidth: 650,
+    },
+  }));
+
+
+const MyPage = () => {
+    const classes = useStyles();
+    const user = firebase.auth().currentUser;
+
+    return(
+        <div>
+            <>
+                <Header />
+                <h2>アカウント情報</h2>
+                <ul>
+                    <li><img src={user.photoURL} /></li>
+                    <li>{user.displayName}</li>
+                    <li>{user.email}</li>
+                </ul>
+
+                <h4>登録中のファンページ</h4>
+                <Table classNmae={classes.table}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>ファンページ名</TableCell>
+                            <TableCell>解約ボタン</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell>〇〇ファンクラブ</TableCell>
+                            <TableCell><button>解約</button></TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>〇〇のために頑張る会</TableCell>
+                            <TableCell><button>解約</button></TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>FC 〇〇</TableCell>
+                            <TableCell><button>解約</button></TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+                <Footer />
+            </>
             <style jsx>{`
-                div {
-                    margin: 0 auto;
-                    width: 80%;
-                    height: 80%;
+                img {
+                    width: 20%;
+                }
+                ul {
+                    list-style: none;
                 }
             `}</style>
-            </div>
-        )
-    }
+        </div>
+    )
+}
 
-};
 
 export default withAuth(MyPage);
