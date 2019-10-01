@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
       [theme.breakpoints.up('md')]: {
         display: 'none',
       },
-    },
+    }
 }));
 
 const handleSignIn = () => {
@@ -174,7 +174,9 @@ export default function Header() {
           <AppBar position="static">
             <Toolbar>
               <Typography className={classes.title} variant="h6" noWrap>
-                Fan Club
+                <Link href="/">
+                  Fan Club
+                </Link>
               </Typography>
 
 

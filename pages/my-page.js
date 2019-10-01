@@ -23,6 +23,12 @@ const useStyles = makeStyles(theme => ({
     table: {
       minWidth: 650,
     },
+    img: {
+        width: '20%'
+    },
+    ul: {
+        listStyle: 'none'
+    }
   }));
 
 
@@ -35,8 +41,8 @@ const MyPage = () => {
             <>
                 <Header />
                 <h2>アカウント情報</h2>
-                <ul>
-                    <li><img src={user.photoURL} /></li>
+                <ul className={classes.ul}>
+                    <li><img src={user.photoURL} className={classes.img}/></li>
                     <li>{user.displayName}</li>
                     <li>{user.email}</li>
                 </ul>
@@ -66,14 +72,6 @@ const MyPage = () => {
                 </Table>
                 <Footer />
             </>
-            <style jsx>{`
-                img {
-                    width: 20%;
-                }
-                ul {
-                    list-style: none;
-                }
-            `}</style>
         </div>
     )
 }
