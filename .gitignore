@@ -2,4 +2,3 @@ node_modules
 .next
 .env
 next.config.js
-pages/test.js

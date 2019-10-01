@@ -1,22 +1,26 @@
 import { db } from '../../lib/db';
+
 import React from 'react';
-import Link from 'next/link';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+import Link  from 'next/link';
+
+import { makeStyles }  from '@material-ui/core/styles';
+
+import GridList        from '@material-ui/core/GridList';
+import GridListTile    from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import { makeStyles } from '@material-ui/core/styles';
+
 
 const useStyles = makeStyles(theme => ({
     popularArtists: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      overflow: 'hidden',
+      display:         'flex',
+      flexWrap:        'wrap',
+      justifyContent:  'space-around',
+      overflow:        'hidden',
       backgroundColor: theme.palette.background.paper,
     },
     gridList: {
-      flexWrap: 'nowrap',
-      transform: 'translateZ(0)',
+      flexWrap:  '500',
+      transform: '450',
     },
   }));
 
@@ -43,28 +47,24 @@ export default class ArtistsGridList extends React.Component {
       }
 
         render() {
-        // const classes = useStyles();Z
+        const classes = useStyles();
         const fanPages = this.props.fanPages
         return (
             <div>
                 <h3>人気なアーティスト一覧</h3>
-                {/* アーティスト画像の表示 */}
-                <div>
+                <div className={classes.popularArtists}>
+                <GridList cellHeight={160} className={classes.gridList} cols={3}>
                     {fanPages.map(fanPage =>
-                    <GridList>
-                        <GridListTile>
-                            <Link href="/detail">
-                            <img src="../static/popular-artist-img.jpg" />
-                            </Link>
+                        <GridListTile key={fanPage.id} cols={fanPage.cols || 1}>
+                              <Link href="/p/[detailid]" as={`/p/${fanPage.id}`}>
+                                <img src="../static/popular-artist-img.jpg" />
+                              </Link>
                             <GridListTileBar title={fanPage.artistName} />
                         </GridListTile>
+                      )}
                     </GridList>
-                        )}
                 </div>
             </div>
         );
         }
     }
-
-    // <div className={classes.popularArtists}>
-    // <GridList className={classes.gridList} cols={2.5}>

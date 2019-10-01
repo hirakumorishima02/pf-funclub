@@ -143,26 +143,26 @@ export default function Header() {
         open={isMobileMenuOpen}
         onClose={handleMobileMenuClose}
       >
-        <MenuItem>
+        <MenuItem onClick={handleSignIn}>
           <IconButton color="inherit">
-              <MeetingRoom onClick={handleSignIn}/>
+              <MeetingRoom/>
           </IconButton>
           <p>Sign in</p>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleSignout}>
           <IconButton color="inherit">
-              <ExitToApp onClick={handleSignout}/>
+              <ExitToApp/>
           </IconButton>
           <p>Sign out</p>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleMyPage}>
           <IconButton
             aria-label="account of current user"
             aria-controls="primary-search-account-menu"
             aria-haspopup="true"
             color="inherit"
           >
-            <AccountCircle onClick={handleMyPage}/>
+            <AccountCircle />
           </IconButton>
           <p>My Page</p>
         </MenuItem>

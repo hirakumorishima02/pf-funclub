@@ -1,17 +1,17 @@
 import { db } from '../lib/db';
-import React from 'react';
-import Link from 'next/link';
+import React  from 'react';
+import Link   from 'next/link';
 
-import Header from '../components/shared/Header';
-import Footer from '../components/shared/Footer';
+import Header          from '../components/shared/Header';
+import Footer          from '../components/shared/Footer';
 import SiteDesctiption from '../components/index/Site-description';
-import Wallpaper from '../components/index/Wallpaper';
+import Wallpaper       from '../components/index/Wallpaper';
 
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+import GridList        from '@material-ui/core/GridList';
+import GridListTile    from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles }  from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
 
@@ -39,18 +39,18 @@ const Index = ({fanPages}) => {
             <SiteDesctiption />
 
             <div>
-                <h3>人気なアーティスト一覧</h3>
+                <h3>アーティスト一覧</h3>
                 <div className={classes.popularArtists}>
-                    {fanPages.map(fanPage =>
-                        <GridList className={classes.gridList} cols={2.5} key={fanPage.id}>
-                            <GridListTile>
+                    <GridList cellHeight={160} className={classes.gridList} cols={3}>
+                        {fanPages.map(fanPage =>
+                            <GridListTile key={fanPage.id} cols={fanPage.cols || 1}>
                                 <Link href="/p/[detailid]" as={`/p/${fanPage.id}`}>
                                     <img src="../static/popular-artist-img.jpg" />
                                 </Link>
                                 <GridListTileBar title={fanPage.artistName} />
                             </GridListTile>
-                        </GridList>
-                    )}
+                        )}
+                    </GridList>
                 </div>
             </div>
 
