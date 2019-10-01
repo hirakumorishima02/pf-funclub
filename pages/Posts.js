@@ -1,10 +1,69 @@
 import { db } from '../lib/db';
+import React  from 'react';
 import Header from '../components/shared/Header';
 import Footer from '../components/shared/Footer';
-import React from 'react'
 
- export default class Posts extends React.Component {
-  static async getInitialProps() {
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+
+const handleDelete = (id) => {
+  db.collection('posts')
+  .doc(id)
+  .delete()
+
+  .then(function() {
+    console.log("Document successfully deleted!");
+  })
+
+  .catch(function(error) {
+    console.error("Error removing document: ", error);
+  });
+}
+
+const useStyles = makeStyles(theme => ({
+  card: {
+    width: '50%',
+    marginBottom: '20px'
+  }
+}));
+
+const Posts = ({posts}) => {
+  const classes = useStyles();
+  return (
+    <>
+      <Header />
+        <div>
+          {posts.map(post =>
+            <Card className={classes.card} key={post.id}>
+              <CardHeader title={post.title} />
+              <CardContent>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {post.body}
+                </Typography>
+              </CardContent>
+              <button onClick={handleDelete.bind(this, post.id)}>削除</button>
+            </Card>
+          )}
+        </div>
+      <Footer />
+      <style jsx>{`
+        .post {
+          width: 40%;
+          border: 1px solid black;
+          background-color: gray;
+          margin-bottom: 10px;
+        }
+      `}</style>
+    </>
+  );
+}
+
+Posts.getInitialProps =
+
+  async() => {
     let result = await new Promise((resolve, reject) => {
       db.collection('posts')
       .get()
@@ -25,45 +84,4 @@ import React from 'react'
     return {posts: result}
   }
 
-  handleDelete = (id) => {
-    db.collection('posts')
-    .doc(id)
-    .delete()
-    .then(function() {
-      console.log("Document successfully deleted!");
-    }).catch(function(error) {
-      console.error("Error removing document: ", error);
-    });
-  }
-
-  render() {
-    const posts = this.props.posts
-    return (
-      <React.Fragment>
-        <Header />
-          <div>
-            {posts.map(post =>
-              <div className="post" key={post.id}>
-                <h2>
-                  {post.title}
-                </h2>
-                <p>
-                  {post.body}
-                </p>
-                <button onClick={this.handleDelete.bind(this, post.id)}>削除</button>
-              </div>
-            )}
-          </div>
-        <Footer />
-        <style jsx>{`
-          .post {
-            width: 40%;
-            border: 1px solid black;
-            background-color: gray;
-            margin-bottom: 10px;
-          }
-        `}</style>
-      </React.Fragment>
-    );
-  }
-}
+export default Posts;

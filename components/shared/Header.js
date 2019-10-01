@@ -175,7 +175,7 @@ export default function Header() {
             <Toolbar>
               <Typography className={classes.title} variant="h6" noWrap>
                 <Link href="/">
-                  Fan Club
+                  <a>Fan Club</a>
                 </Link>
               </Typography>
 
@@ -197,14 +197,14 @@ export default function Header() {
 
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
-                <IconButton color="inherit">
-                    <MeetingRoom onClick={handleSignIn}/>
+                <IconButton color="inherit" onClick={handleSignIn}>
+                    <MeetingRoom />
                 </IconButton>
-                <IconButton color="inherit">
-                    <ExitToApp onClick={handleSignout}/>
+                <IconButton color="inherit" onClick={handleSignout}>
+                    <ExitToApp />
                 </IconButton>
-                <IconButton color="inherit">
-                  <AccountCircle onClick={handleMyPage}/>
+                <IconButton color="inherit" onClick={handleMyPage}>
+                  <AccountCircle />
                 </IconButton>
               </div>
 
