@@ -2,6 +2,8 @@ import { db }   from '../lib/db';
 import React    from 'react';
 import withAuth from "../lib/helpers/withAuth";
 
+import { auth } from "../lib/db";
+
 import Header from '../components/shared/Header';
 import Footer from '../components/shared/Footer';
 
@@ -14,17 +16,33 @@ class MakeFunPage extends React.Component {
             artistName: '',
             body      : '',
             monthlyFee: '',
-            category  : ''
+            category  : '',
+            userId    : '',
         };
     }
+
+    componentDidMount() {
+        auth.onAuthStateChanged(authUser => {
+          if (authUser) {
+            this.setState({
+              userId: authUser.uid
+            });
+          } else {
+            router.push("/");
+          }
+        });
+      }
+
     handleMakeFanPage = async (evt) => {
         evt.preventDefault();
         db.collection("fanPages").add({
-            pageName: this.state.pageName,
+            pageName  : this.state.pageName,
             artistName: this.state.artistName,
-            body: this.state.body,
+            body      : this.state.body,
             monthlyFee: this.state.monthlyFee,
-            category: this.state.category
+            category  : this.state.category,
+            userId    : this.state.userId
+
         })
         .then(function() {
             console.log("Document successfully written!");
