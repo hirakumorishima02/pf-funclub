@@ -1,17 +1,20 @@
+import { db }   from '../lib/db';
+import React    from 'react';
+import withAuth from "../lib/helpers/withAuth";
+
 import Header from '../components/shared/Header';
 import Footer from '../components/shared/Footer';
-import React from 'react';
-import { db } from '../lib/db';
+
 
 class MakeFunPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            pageName: '',
+            pageName  : '',
             artistName: '',
-            body: '',
+            body      : '',
             monthlyFee: '',
-            category: ''
+            category  : ''
         };
     }
     handleMakeFanPage = async (evt) => {
@@ -30,19 +33,19 @@ class MakeFunPage extends React.Component {
             console.error("Error writing document: ", error);
         });
     }
-    onChangePagename = (evt) => {
+    onChangePagename    = (evt) => {
         this.setState({ pageName: evt.target.value });
     }
-    onChangeArtistName = (evt) => {
+    onChangeArtistName  = (evt) => {
         this.setState({ artistName: evt.target.value });
     }
-     onChangeBody = (evt) => {
+    onChangeBody        = (evt) => {
         this.setState({ body: evt.target.value });
     }
      onChangeMonthlyFee = (evt) => {
         this.setState({ monthlyFee: evt.target.value });
     }
-     onChangeCategory = (evt) => {
+    onChangeCategory    = (evt) => {
         this.setState({ category: evt.target.value });
     }
     render() {
@@ -102,4 +105,4 @@ class MakeFunPage extends React.Component {
     }
 };
 
-export default MakeFunPage;
+export default withAuth(MakeFunPage);

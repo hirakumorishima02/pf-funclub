@@ -1,22 +1,23 @@
 import { auth, firebase } from "../../lib/db";
-import React from 'react';
-import Link from 'next/link';
+import React              from 'react';
+import Link               from 'next/link';
 
 import { fade, makeStyles } from '@material-ui/core/styles';
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import AppBar     from '@material-ui/core/AppBar';
+import Toolbar    from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import InputBase  from '@material-ui/core/InputBase';
+import MenuItem   from '@material-ui/core/MenuItem';
+import Menu       from '@material-ui/core/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MeetingRoom from '@material-ui/icons/MeetingRoom';
-import ExitToApp from '@material-ui/icons/ExitToApp';
-import MoreIcon from '@material-ui/icons/MoreVert';
+import MeetingRoom   from '@material-ui/icons/MeetingRoom';
+import ExitToApp     from '@material-ui/icons/ExitToApp';
+import MoreIcon      from '@material-ui/icons/MoreVert';
+import AddToQueue    from '@material-ui/icons/AddToQueue';
 
 
 const useStyles = makeStyles(theme => ({
@@ -104,8 +105,12 @@ const handleSignout = () => {
         });
 };
 
-const handleMyPage = () => {
+const goToMyPage = () => {
     document.location.href = "/my-page";
+};
+
+const goToMakeFanPage = () => {
+    document.location.href = "/make-fan-page";
 };
 
 
@@ -128,8 +133,6 @@ export default function Header() {
     const handleMobileMenuOpen = event => {
       setMobileMoreAnchorEl(event.currentTarget);
     };
-
-    const menuId = 'primary-search-account-menu';
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
 
@@ -155,16 +158,21 @@ export default function Header() {
           </IconButton>
           <p>Sign out</p>
         </MenuItem>
-        <MenuItem onClick={handleMyPage}>
+        <MenuItem onClick={goToMyPage}>
           <IconButton
-            aria-label="account of current user"
-            aria-controls="primary-search-account-menu"
-            aria-haspopup="true"
             color="inherit"
           >
             <AccountCircle />
           </IconButton>
           <p>My Page</p>
+        </MenuItem>
+        <MenuItem onClick={goToMakeFanPage}>
+          <IconButton
+            color="inherit"
+          >
+            <AddToQueue />
+          </IconButton>
+          <p>Create Your Page</p>
         </MenuItem>
       </Menu>
     );
@@ -178,7 +186,6 @@ export default function Header() {
                   <a>Fan Club</a>
                 </Link>
               </Typography>
-
 
               <div className={classes.search}>
                 <div className={classes.searchIcon}>
@@ -203,8 +210,11 @@ export default function Header() {
                 <IconButton color="inherit" onClick={handleSignout}>
                     <ExitToApp />
                 </IconButton>
-                <IconButton color="inherit" onClick={handleMyPage}>
+                <IconButton color="inherit" onClick={goToMyPage}>
                   <AccountCircle />
+                </IconButton>
+                <IconButton color="inherit" onClick={goToMakeFanPage}>
+                  <AddToQueue />
                 </IconButton>
               </div>
 
