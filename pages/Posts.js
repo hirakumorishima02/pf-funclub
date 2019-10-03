@@ -74,7 +74,7 @@ Posts.getInitialProps =
 
     let authUser = await auth.onAuthStateChanged(authUser => {
       if (authUser) {
-          return authUser;
+        
       } else {
         router.push("/");
       }
