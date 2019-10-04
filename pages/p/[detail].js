@@ -3,23 +3,22 @@ import { auth } from "../../lib/db";
 
 import React from 'react';
 
-import { Stripe } from 'react-stripe-elements';
-
 import Header from '../../components/shared/Header';
 import Footer from '../../components/shared/Footer';
 
+import Head from 'next/head'
 
 export default class Detail extends React.Component {
     // constructorにStripeのカード登録に必要なデータのStateを用意
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            number: '4242424242424242',
-            cvc: '111',
-            exp_month: 1,
-            exp_year: 2020,
+            number     : '4242424242424242',
+            cvc        : '111',
+            exp_month  : 1,
+            exp_year   : 2020,
             address_zip: '00000',
-            userId: '',
+            userId     : '',
         };
     }
     // submitNewCreditCardに使用するauthUserのuidをstateに取得
@@ -29,35 +28,39 @@ export default class Detail extends React.Component {
             this.setState({
               userId: authUser.uid
             });
+
           } else {
             router.push("/");
           }
         });
       }
     // 入力されたカード情報をStripeに送信
-    submitNewCreditCard () {
+    submitNewCreditCard = async (evt) => {
+        evt.preventDefault();
+        await 
+        Stripe.setPublishableKey(functions.config().stripe.apykey);
         Stripe.card.createToken({
-            number: this.state.number,
-            cvc: this.state.cvc,
-            exp_month: this.state.exp_month,
-            exp_year: this.state.exp_year,
-            address_zip: this.state.address_zip
-        }, (response) => {
-            if (response.error) {
-                this.newCreditCard.error = response.error.message;
-        } else {
-            db.collection('stripe_customers').doc(this.state.userId).collection('tokens').add({token: response.id}).then(() => {
-                console.log("Done!")
-                this.setState({
-                    number: '',
-                    cvc: '',
-                    exp_month: 1,
-                    exp_year: 2020,
-                    address_zip: ''
-                };
+                number: this.state.number,
+                cvc: this.state.cvc,
+                exp_month: this.state.exp_month,
+                exp_year: this.state.exp_year,
+                address_zip: this.state.address_zip
+            }, (response) => {
+                if (response.error) {
+                    this.newCreditCard.error = response.error.message;
+            } else {
+                db.collection('stripe_customers').doc(this.state.userId).collection('tokens').add({token: response.id}).then(() => {
+                    console.log("Done!")
+                    this.setState({
+                        number: '',
+                        cvc: '',
+                        exp_month: 1,
+                        exp_year: 2020,
+                        address_zip: ''
+                    });
+                });
+            }
             });
-        }
-        });
     }
     // カード情報登録フォーム関係の関数
     onChangeNumber       = (evt) => {
@@ -104,6 +107,9 @@ export default class Detail extends React.Component {
           const detail = this.props.detail;
         return (
             <>
+                <Head>
+                    <script src="https://js.stripe.com/v2/"></script>
+                </Head>
                 <Header />
                 <div>
                     <h2>{detail.pageName}</h2>
