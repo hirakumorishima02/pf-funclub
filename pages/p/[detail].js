@@ -38,19 +38,19 @@ export default class Detail extends React.Component {
     submitNewCreditCard = async (evt) => {
         evt.preventDefault();
         await 
-        Stripe.setPublishableKey(functions.config().stripe.apykey);
+        Stripe.setPublishableKey('pk_test_RbguENgpWfqVTAfQGLbXOffR00YAdmOg7Q');
         Stripe.card.createToken({
                 number: this.state.number,
                 cvc: this.state.cvc,
                 exp_month: this.state.exp_month,
                 exp_year: this.state.exp_year,
                 address_zip: this.state.address_zip
-            }, (response) => {
+            }, (status,response) => {
                 if (response.error) {
                     this.newCreditCard.error = response.error.message;
             } else {
+                console.log(response)
                 db.collection('stripe_customers').doc(this.state.userId).collection('tokens').add({token: response.id}).then(() => {
-                    console.log("Done!")
                     this.setState({
                         number: '',
                         cvc: '',
