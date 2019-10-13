@@ -56,7 +56,7 @@ export default class Detail extends React.Component {
             <StripeProvider stripe={this.state.stripe}>
                 <>
                     <Head>
-                        <script src="https://js.stripe.com/v2/"></script>
+                        <script src="https://js.stripe.com/v3/"></script>
                     </Head>
                     <Header />
                     <div>

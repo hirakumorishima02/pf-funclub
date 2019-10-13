@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 
 const Index = ({fanPages}) => {
     const classes = useStyles();
+
     return (
         <>
             <Header />

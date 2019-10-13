@@ -26,7 +26,7 @@ class CheckoutForm extends Component {
     return (
       <div className="checkout">
         <p>Would you like to complete the purchase?</p>
-        <CardElement onReady={c => (this._element = c)} />
+            <CardElement onReady={c => (this._element = c)} />
         <button onClick={this.submit}>Purchase</button>
       </div>
     );
