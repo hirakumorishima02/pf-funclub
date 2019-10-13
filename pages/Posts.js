@@ -1,14 +1,17 @@
-import { db } from '../lib/db';
-import React  from 'react';
+import { db }   from '../lib/db';
+import { auth } from "../lib/db";
+import React    from 'react';
+
 import Header from '../components/shared/Header';
 import Footer from '../components/shared/Footer';
-import Link from 'next/link';
+import Link   from 'next/link';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import Card           from '@material-ui/core/Card';
+import CardHeader     from '@material-ui/core/CardHeader';
+import CardContent    from '@material-ui/core/CardContent';
+import Typography     from '@material-ui/core/Typography';
+
 
 const handleDelete = (id) => {
   db.collection('posts')
@@ -68,8 +71,19 @@ const Posts = ({posts}) => {
 Posts.getInitialProps =
 
   async() => {
+
+    let authUser = await auth.onAuthStateChanged(authUser => {
+      if (authUser) {
+          return authUser;
+      } else {
+        router.push("/");
+      }
+    });
+
     let result = await new Promise((resolve, reject) => {
+
       db.collection('posts')
+      .where("userId", "==", authUser.uid)
       .get()
       .then(snapshot => {
         let data = []

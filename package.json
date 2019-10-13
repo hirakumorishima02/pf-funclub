@@ -21,6 +21,7 @@
     "firebase": "^6.6.2",
     "next": "^9.0.6",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "react-stripe-elements": "^5.0.1"
   }
 }
