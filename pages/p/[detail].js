@@ -1,6 +1,7 @@
 import { db }   from '../../lib/db';
 import { auth } from "../../lib/db";
 import React    from 'react';
+import { firebase } from "../../lib/db";
 
 import Header       from '../../components/shared/Header';
 import Footer       from '../../components/shared/Footer';
@@ -26,10 +27,12 @@ export default class Detail extends React.Component {
     submitNewCharge = async (evt) => {
         evt.preventDefault();
         await
-        db.collection('stripe_customers').doc(this.state.userId).collection('charges').add({
-            source: this.state.source,
-            amount: parseInt(this.state.amount)
-          });
+        db.collection('stripe_customers')
+        .doc(firebase.auth().currentUser.uid)
+        .collection('charges')
+        .add({
+            amount: this.props.detail.monthlyFee
+          })
     }
 
     static async getInitialProps({query}) {
@@ -71,6 +74,7 @@ export default class Detail extends React.Component {
                     <Elements>
                         <CheckoutForm />
                     </Elements>
+                    <button onClick={this.submitNewCharge}>決済</button>
                     <Footer />
                     <style jsx>{`
                         div {

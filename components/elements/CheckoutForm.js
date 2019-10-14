@@ -27,7 +27,7 @@ class CheckoutForm extends Component {
       <div className="checkout">
         <p>Would you like to complete the purchase?</p>
             <CardElement onReady={c => (this._element = c)} />
-        <button onClick={this.submit}>Purchase</button>
+        <button onClick={this.submit}>クレジットカード登録</button>
       </div>
     );
   }
