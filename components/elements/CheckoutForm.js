@@ -1,7 +1,6 @@
 import React, { Component }          from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import { firestore }                 from "../../lib/db";
-import withAuth                      from "../../lib/helpers/withAuth";
 
 
 class CheckoutForm extends Component {
@@ -33,4 +32,4 @@ class CheckoutForm extends Component {
   }
 }
 
-export default withAuth(injectStripe(CheckoutForm));
+export default injectStripe(CheckoutForm);

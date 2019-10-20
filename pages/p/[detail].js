@@ -6,6 +6,8 @@ import { firebase } from "../../lib/db";
 import Header       from '../../components/shared/Header';
 import Footer       from '../../components/shared/Footer';
 import CheckoutForm from "../../components/elements/CheckoutForm";
+import Payable      from "../../components/elements/Payable";
+
 
 import Head     from 'next/head'
 
@@ -14,26 +16,30 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 export default class Detail extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { stripe: null };
+        this.state = { 
+            stripe  : null,
+            isLogin : false,
+            user    : {}
+        };
     }
 
     componentDidMount() {
-        this.setState({
-          stripe: window.Stripe(process.env.stripeKey)
-        });
+        auth.onAuthStateChanged(authUser => {
+            if (authUser) {
+              const state = Object.assign(this.state, {
+                stripe: window.Stripe(process.env.stripeKey),
+                isLogin: true,
+                user: authUser
+              });
+              this.setState(state);
+            } else {
+              this.setState({
+                isLogin: false,
+                user: {}
+              });
+            }
+          });
       }
-
-    // 単発決済関係の関数
-    submitNewCharge = async (evt) => {
-        evt.preventDefault();
-        await
-        db.collection('stripe_customers')
-        .doc(firebase.auth().currentUser.uid)
-        .collection('charges')
-        .add({
-            amount: this.props.detail.monthlyFee
-          })
-    }
 
     static async getInitialProps({query}) {
         let result = await
@@ -71,10 +77,16 @@ export default class Detail extends React.Component {
                         <h4>月額</h4>
                         <p>{detail.monthlyFee}円</p>
                     </div>
+                    {this.state.isLogin
+                    ?
+                    <>
                     <Elements>
                         <CheckoutForm />
                     </Elements>
-                    <button onClick={this.submitNewCharge}>決済</button>
+                    <h5>使用するクレジットカードの選択</h5>
+                    <Payable amount={detail.monthlyFee} currentUid={this.state.user.uid} />
+                    </>
+                    : "Please Login"}
                     <Footer />
                     <style jsx>{`
                         div {
