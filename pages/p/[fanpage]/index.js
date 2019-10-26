@@ -1,13 +1,12 @@
-import { db }   from '../../lib/db';
-import { auth } from "../../lib/db";
+import { db }   from '../../../lib/db';
+import { auth } from "../../../lib/db";
 import React    from 'react';
-import { firebase } from "../../lib/db";
+import { firebase } from "../../../lib/db";
 
-import Header       from '../../components/shared/Header';
-import Footer       from '../../components/shared/Footer';
-import CheckoutForm from "../../components/elements/CheckoutForm";
-import Payable      from "../../components/elements/Payable";
-
+import Header       from '../../../components/shared/Header';
+import Footer       from '../../../components/shared/Footer';
+import CheckoutForm from "../../../components/elements/CheckoutForm";
+import Payable      from "../../../components/elements/Payable";
 
 import Head     from 'next/head'
 
@@ -16,7 +15,7 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 export default class Detail extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             stripe  : null,
             isLogin : false,
             user    : {}
@@ -44,14 +43,10 @@ export default class Detail extends React.Component {
     static async getInitialProps({query}) {
         let result = await
             db.collection("fanPages")
-            .doc(query.detail)
+            .doc(query.fanpage)
             .get()
-            .then(function(doc) {
-                if (doc.exists) {
-                    return doc.data();
-                } else {
-                    console.log('not exists');
-                }
+            .then(snapshot => {
+                return { id: snapshot.id, ...snapshot.data() };
             }).catch(error => {
                 console.log(error)
                 return []
@@ -60,7 +55,7 @@ export default class Detail extends React.Component {
         }
 
       render() {
-          const detail = this.props.detail;
+        const detail = this.props.detail;
         return (
             <StripeProvider stripe={this.state.stripe}>
                 <>
@@ -84,7 +79,7 @@ export default class Detail extends React.Component {
                         <CheckoutForm />
                     </Elements>
                     <h5>使用するクレジットカードの選択</h5>
-                    <Payable amount={detail.monthlyFee} currentUid={this.state.user.uid} />
+                    <Payable detail={this.props.detail} currentUid={this.state.user.uid} />
                     </>
                     : "Please Login"}
                     <Footer />

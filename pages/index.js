@@ -45,7 +45,7 @@ const Index = ({fanPages}) => {
                     <GridList cellHeight={160} className={classes.gridList} cols={3}>
                         {fanPages.map(fanPage =>
                             <GridListTile key={fanPage.id} cols={fanPage.cols || 1}>
-                                <Link href="/p/[detailid]" as={`/p/${fanPage.id}`}>
+                                <Link href="/p/[fanpage]" as={`/p/${fanPage.id}`}>
                                     <img src="../static/popular-artist-img.jpg" />
                                 </Link>
                                 <GridListTileBar title={fanPage.artistName} />

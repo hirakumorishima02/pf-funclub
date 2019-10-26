@@ -34,14 +34,18 @@ function Payable(props) {
 
   const handleCharge = event => {
     event.preventDefault();
-    alert(`${source.last4}(${source.key})で${props.amount}円はらいます`);
+    alert(
+      `${source.last4}(${source.key})で${props.detail.monthlyFee}円はらいます。手続き完了までしばらくかかります。`
+    );
     firestore
       .collection("stripe_customers")
       .doc(props.currentUid)
       .collection("charges")
       .add({
         source: source.key,
-        amount: parseInt(props.amount)
+        amount: parseInt(props.detail.monthlyFee),
+        plan: props.detail.plan,
+        fanpageId: props.detail.id
       });
   };
 
