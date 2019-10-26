@@ -4,3 +4,5 @@
 - Firebase Cloud Firestore
 - Next.js
 - Material-UI
+- Stripe API
+- 
