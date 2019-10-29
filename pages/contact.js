@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 
-const firebase = require("firebase");
+import {firebase} from '../lib/db.js';
 require("firebase/functions");
-
 
 class ContactForm extends Component {
   constructor(){

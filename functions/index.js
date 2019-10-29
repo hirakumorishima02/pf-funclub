@@ -150,7 +150,7 @@ exports.createProductPlan = functions.firestore
 
 
 
-  // 送信に使用するメールサーバーの設定
+// メールサーバー設定
 const mailTransport = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -170,7 +170,7 @@ ${data.name}
 ${data.email}
 
 内容：
-${data.contents}
+${data.content}
 `;
 };
 
@@ -182,10 +182,6 @@ exports.sendMail = functions.https.onCall((data, context) => {
     subject: "ホームページお問い合わせ",
     text: adminContents(data)
   };
-
-  console.log(gmailEmail);
-  console.log(gmailPassword);
-  console.log(adminEmail);
 
   // 管理者へのメール送信
   mailTransport.sendMail(adminMail, (err, info) => {
