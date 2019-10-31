@@ -98,7 +98,7 @@ exports.createStripeCharge = functions.firestore
       await admin
         .firestore()
         .collection("fanPages")
-        .doc(val.productId)
+        .doc(val.fanpageId)
         .collection("members")
         .doc(context.params.userId)
         .set({ permission: "readonly" });
