@@ -149,7 +149,7 @@ exports.createProductPlan = functions.firestore
 
 exports.addFanpageMember =
 functions.firestore
-.document("fanPages/{fanpage}/members/{member}")
+.document("fanPages/{fanpage}")
 .onCreate(async (snap, context) => {
   const val = snap.data();
   try {
