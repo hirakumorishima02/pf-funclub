@@ -1,14 +1,14 @@
 import { db }   from '../../../lib/db';
 import { auth } from "../../../lib/db";
 import React    from 'react';
-import { firebase } from "../../../lib/db";
 
 import Header       from '../../../components/shared/Header';
 import Footer       from '../../../components/shared/Footer';
 import CheckoutForm from "../../../components/elements/CheckoutForm";
 import Payable      from "../../../components/elements/Payable";
 
-import Head     from 'next/head'
+import Head   from 'next/head'
+import Link   from 'next/link';
 
 import { Elements, StripeProvider } from "react-stripe-elements";
 
@@ -80,6 +80,11 @@ export default class Detail extends React.Component {
                     </Elements>
                     <h5>使用するクレジットカードの選択</h5>
                     <Payable detail={this.props.detail} currentUid={this.state.user.uid} />
+                    <button>
+                        <Link href="/p/[fanpage]/member-only" as={`/p/${detail.id}/member-only`}>
+                            会員ページへ
+                        </Link>
+                    </button>
                     </>
                     : "Please Login"}
                     <Footer />
