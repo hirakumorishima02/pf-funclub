@@ -145,7 +145,29 @@ exports.createProductPlan = functions.firestore
     const result = await stripe.plans.create(plans);
 
     await snap.ref.set({ plan: result.id }, { merge: true });
-  });
+});
+
+exports.addFanpageMember =
+functions.firestore
+.document("fanPages/{fanpage}/members/{member}")
+.onCreate(async (snap, context) => {
+  const val = snap.data();
+  try {
+  await admin
+  .firestore()
+  .collection("fanPages")
+  .doc(val.fanpageId)
+  .collection("members")
+  .doc(context.params.userId)
+  .set({ permission: "pageOwner" });
+  return;
+} catch (error) {
+  console.log(error);
+  await snap.ref.set({ error: userFacingMessage(error) }, { merge: true });
+  console.error(error);
+  console.log(`user: ${context.params.userId}`);
+}
+});
 
 
 

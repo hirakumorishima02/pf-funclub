@@ -13,7 +13,7 @@ class CheckoutForm extends Component {
     const { token, error } = await this.props.stripe.createToken();
     firestore
       .collection("stripe_customers")
-      .doc(this.props.currentUser.uid)
+      .doc(this.props.currentUid)
       .collection("tokens")
       .add({ token: token.id })
       .then(() => {

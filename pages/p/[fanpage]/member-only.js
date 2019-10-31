@@ -2,53 +2,75 @@ import withAuthMember from "../../../lib/helpers/withAuthMember";
 import { db } from '../../../lib/db';
 import Link from "next/link";
 
-const MemberOnly = ({posts}) => {
-  console.log(posts);
+import React, { useEffect, useState }  from 'react'; 
+import { useRouter } from 'next/router'
+
+
+const MemberOnly = props => {
+  const [postsState, setPostsState] = useState([]);
+  const router = useRouter()
+  useEffect(() => {
+    async function fetchData() {
+      const result = 
+      await 
+      db.collection("fanPages")
+      .doc(router.query.fanpage)
+      .collection("posts")
+      .get()
+      .then(snapshot => {
+        let posts = [];
+        snapshot.forEach(doc => {
+          posts.push({ key: doc.id, value: doc.data() });
+        });
+        setPostsState(posts);
+      });
+  }
+  fetchData();
+  }, []);
+
   return (
     <>
       <h1>pages/posts/index</h1>
       <ul>
-        {/* {props.posts.map(post => {
+        {postsState.map(post => {
           return (
-            <li key={post.id}>
-              <Link href="/posts/[post]" as={`/posts/${post.id}`}>
-                <a>{post.title}</a>
-              </Link>
+            <li key={post.key}>
+              <h3>{post.value.title}</h3>
               <ul>
-                <li>{post.title}</li>
-                <li>{post.body}</li>
+                <li key={post.key}>
+                  <p>{post.value.body}</p>
+                </li>
               </ul>
+              <p>
+                {props.currentUser.uid == post.value.createdBy ? (
+                  <Link
+                    href="/p/[fanpage]/edit"
+                    as={`/p/${post.key}/edit`}
+                  >
+                    <a>EDIT</a>
+                  </Link>
+                ) : (
+                  "READ ONLY"
+                )}
+              </p>
             </li>
           );
-        })} */}
+        })}
       </ul>
+      <p>
+        {props.currentUser.uid == "aE91BXgT8fZaDiikdTRF4dmRzhF2" ? (
+          <Link
+            href="/p/[fanpage]/add"
+            as={`/p/add`}
+          >
+            <a>ADD POST</a>
+          </Link>
+        ) : (
+          "READ ONLY"
+        )}
+      </p>
     </>
   );
-};
-
-MemberOnly.getInitialProps = async () => {
-  const result = await db
-    .collection("fanPages")
-    .doc("tDL9HvH3jXppwA95CRy1")
-    .collection("posts")
-    .get()
-    .then(snapshot => {
-      let data = [];
-      snapshot.forEach(doc => {
-        data.push(
-          Object.assign(
-            {
-              id: doc.id
-            },
-            doc.data()
-          )
-        );
-      });
-      return data;
-    }).catch(error => {
-      return []
-    })
-  return { posts: result };
 };
 
 export default withAuthMember(MemberOnly);

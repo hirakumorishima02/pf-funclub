@@ -20,8 +20,10 @@ function Payable(props) {
           snapshot.forEach(doc => {
             newSources.push({ key: doc.data().id, last4: doc.data().last4 });
           });
+          if(newSources.length != 0) {
           setSources(newSources);
           setSource(newSources[0]);
+          }
         },
         () => {
           const state = Object.assign(sources, {

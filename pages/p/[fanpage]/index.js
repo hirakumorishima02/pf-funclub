@@ -76,7 +76,7 @@ export default class Detail extends React.Component {
                     ?
                     <>
                     <Elements>
-                        <CheckoutForm />
+                        <CheckoutForm　currentUid={this.state.user.uid} />
                     </Elements>
                     <h5>使用するクレジットカードの選択</h5>
                     <Payable detail={this.props.detail} currentUid={this.state.user.uid} />
