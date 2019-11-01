@@ -44,8 +44,8 @@ const MemberOnly = props => {
               <p>
                 {props.currentUser.uid == post.value.createdBy ? (
                   <Link
-                    href="/p/[fanpage]/edit"
-                    as={`/p/${post.key}/edit`}
+                    href="/p/[fanpage]/[post]/edit"
+                    as={`/p/${router.query.fanpage}/${post.key}/edit`}
                   >
                     <a>EDIT</a>
                   </Link>
@@ -61,7 +61,7 @@ const MemberOnly = props => {
         {props.currentUser.uid == "aE91BXgT8fZaDiikdTRF4dmRzhF2" ? (
           <Link
             href="/p/[fanpage]/add"
-            as={`/p/add`}
+            as={`/p/${router.query.fanpage}/add`}
           >
             <a>ADD POST</a>
           </Link>

@@ -1,13 +1,15 @@
-import { db } from "../../../lib/db";
+import { firestore } from "../../../lib/db";
 import Link from "next/link";
 import { useState } from "react";
+import withAuth from "../../../lib/helpers/withAuth";
+import { useRouter } from 'next/router'
 
-const PostEditPage = ({ post }) => {
+const PostEditPage = props => {
+  const router = useRouter()
   const [postState, setPostState] = useState({
-    id: post.id,
-    title: post.title,
-    body: post.body,
-    createdBy: post.createdBy
+    title: "",
+    body: "",
+    createdBy: props.currentUser.uid
   });
 
   const handleTitle = event => {
@@ -27,21 +29,21 @@ const PostEditPage = ({ post }) => {
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      await
-      db.collection("fanPages")
-      .doc("tDL9HvH3jXppwA95CRy1")
+      await 
+      firestore
+      .collection("fanPages")
+      .doc(router.query.fanpage)
       .collection("posts")
-      .doc("m53r106Fg0nrkxNnvfTZ")
-        .set({
-          title: postState.title,
-          body: postState.body,
-          createdBy: postState.createdBy
-        });
+      .add({
+        title: postState.title,
+        body: postState.body,
+        createdBy: postState.createdBy
+      });
 
-      alert(`${postState.id} has been updated`);
+      alert(`success to create a post: ${postState.title}`);
     } catch (e) {
       console.log(e.message);
-      alert(`Oops, ${postState.id} has not been updated`);
+      alert(`Oops, fail to create a post : ${postState.title} `);
     }
   };
 
@@ -70,22 +72,10 @@ const PostEditPage = ({ post }) => {
         </li>
       </ul>
       <button type="submit" onClick={handleSubmit}>
-        UPDATE
+        ADD
       </button>
     </>
   );
 };
-PostEditPage.getInitialProps = async ({ query }) => {
-  const result = await
-    db.collection("fanPages")
-    .doc("tDL9HvH3jXppwA95CRy1")
-    .collection("posts")
-    .doc(query.fanpage)
-    .get()
-    .then(snapshot => {
-      return { id: snapshot.id, ...snapshot.data() };
-    });
-  return { post: result };
-};
 
-export default PostEditPage;
+export default withAuth(PostEditPage);

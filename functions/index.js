@@ -152,7 +152,6 @@ functions.firestore
 .document("fanPages/{fanpageId}")
 .onCreate(async (snap, context) => {
   const val = snap.data();
-  console.log(val);
   try {
   await admin
   .firestore()
