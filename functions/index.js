@@ -149,16 +149,17 @@ exports.createProductPlan = functions.firestore
 
 exports.addFanpageMember =
 functions.firestore
-.document("fanPages/{fanpage}")
+.document("fanPages/{fanpageId}")
 .onCreate(async (snap, context) => {
   const val = snap.data();
+  console.log(val);
   try {
   await admin
   .firestore()
   .collection("fanPages")
-  .doc(val.fanpageId)
+  .doc(context.params.fanpageId)
   .collection("members")
-  .doc(context.params.userId)
+  .doc(val.userId)
   .set({ permission: "pageOwner" });
   return;
 } catch (error) {
@@ -168,8 +169,6 @@ functions.firestore
   console.log(`user: ${context.params.userId}`);
 }
 });
-
-
 
 
 // メールサーバー設定
