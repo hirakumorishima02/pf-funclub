@@ -103,6 +103,28 @@ exports.createStripeCharge = functions.firestore
         .doc(context.params.userId)
         .set({ permission: "readonly" });
 
+      // 購読者として登録
+
+      var y = dt.getFullYear();
+      var m = ("00" + (dt.getMonth()+1)).slice(-2);
+      var d = ("00" + dt.getDate()).slice(-2);
+      var today = y + "/" + m + "/" + d;
+
+      var y2 = dt.getFullYear();
+      var m2 = ("00" + (dt.getMonth()+2)).slice(-2);
+      var d2 = ("00" + dt.getDate()).slice(-2);
+      var nextMonth = y2 + "/" + m2 + "/" + d2;
+
+      await admin
+        .firestore()
+        .collection("subscriptionMember")
+        .doc(context.params.userId)
+        .set({
+          startDay: today,
+          endDay  : nextMonth,
+          fanPage : val.fanpageId,
+          userId  : context.params.userId
+        });
       return;
     } catch (error) {
       // We want to capture errors and render them in a user-friendly way, while
@@ -210,4 +232,17 @@ exports.sendMail = functions.https.onCall((data, context) => {
     }
     return console.log("send success.");
   });
+});
+
+exports.removeMember = functions.pubsub.schedule('every 24 hours').onRun((context) => {
+  // 今日の日付を「YYYY/MM/DD」形式で算出
+  var dt = new Date();
+  var y2 = dt.getFullYear();
+  var m2 = ("00" + (dt.getMonth()+2)).slice(-2);
+  var d2 = ("00" + dt.getDate()).slice(-2);
+  var today = y2 + "/" + m2 + "/" + d2;
+  // 取得したドキュメントのuserIdを格納する
+  var removeMember = db.collection("subscriptionMember").where("endDay", "==", today).get();
+  // 取得したuserIdと一致する fanPages/{fanpageId}/member/{userId}ドキュメントをdelete
+  return admin.firestore().collection('fanPages').doc().collection("members").delete();
 });
