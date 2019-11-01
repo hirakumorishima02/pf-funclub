@@ -36,14 +36,11 @@ const MemberOnly = props => {
     .doc(router.query.fanpage)
     .get()
     .then(snapshot => {
-      let owner = "";
-      snapshot.forEach(doc => {
-        owner.push({ userId: doc.data().userId });
-      });
-      setOwnerState(owner);
+      let ownerId = snapshot.data().userId;
+      setOwnerState(ownerId)
     });
-}
-fetchOwner();
+  }
+  fetchOwner()
   }, []);
 
   return (
@@ -76,7 +73,7 @@ fetchOwner();
         })}
       </ul>
       <p>
-        {props.currentUser.uid == ownerState.userId ? (
+        {props.currentUser.uid == ownerState ? (
           <Link
             href="/p/[fanpage]/add"
             as={`/p/${router.query.fanpage}/add`}
