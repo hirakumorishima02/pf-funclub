@@ -8,7 +8,9 @@ import { useRouter } from 'next/router'
 
 const MemberOnly = props => {
   const [postsState, setPostsState] = useState([]);
+  const [ownerState, setOwnerState] = useState([]);
   const router = useRouter()
+
   useEffect(() => {
     async function fetchData() {
       const result = 
@@ -26,6 +28,22 @@ const MemberOnly = props => {
       });
   }
   fetchData();
+
+  async function fetchOwner() {
+    const result = 
+    await 
+    db.collection("fanPages")
+    .doc(router.query.fanpage)
+    .get()
+    .then(snapshot => {
+      let owner = "";
+      snapshot.forEach(doc => {
+        owner.push({ userId: doc.data().userId });
+      });
+      setOwnerState(owner);
+    });
+}
+fetchOwner();
   }, []);
 
   return (
@@ -50,7 +68,7 @@ const MemberOnly = props => {
                     <a>EDIT</a>
                   </Link>
                 ) : (
-                  "READ ONLY"
+                  ""
                 )}
               </p>
             </li>
@@ -58,7 +76,7 @@ const MemberOnly = props => {
         })}
       </ul>
       <p>
-        {props.currentUser.uid == "aE91BXgT8fZaDiikdTRF4dmRzhF2" ? (
+        {props.currentUser.uid == ownerState.userId ? (
           <Link
             href="/p/[fanpage]/add"
             as={`/p/${router.query.fanpage}/add`}
@@ -66,7 +84,7 @@ const MemberOnly = props => {
             <a>ADD POST</a>
           </Link>
         ) : (
-          "READ ONLY"
+          ""
         )}
       </p>
     </>
