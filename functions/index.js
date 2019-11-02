@@ -234,15 +234,32 @@ exports.sendMail = functions.https.onCall((data, context) => {
   });
 });
 
-exports.removeMember = functions.pubsub.schedule('every 24 hours').onRun((context) => {
-  // 今日の日付を「YYYY/MM/DD」形式で算出
-  var dt = new Date();
-  var y2 = dt.getFullYear();
-  var m2 = ("00" + (dt.getMonth()+2)).slice(-2);
-  var d2 = ("00" + dt.getDate()).slice(-2);
-  var today = y2 + "/" + m2 + "/" + d2;
-  // 取得したドキュメントのuserIdを格納する
-  var removeMember = db.collection("subscriptionMember").where("endDay", "==", today).get();
-  // 取得したuserIdと一致する fanPages/{fanpageId}/member/{userId}ドキュメントをdelete
-  return admin.firestore().collection('fanPages').doc().collection("members").delete();
-});
+// exports.removeMember = functions.pubsub.schedule('every 5 minutes').onRun( async (context) => {
+//   var dt = new Date();
+//   var y = dt.getFullYear();
+//   var m = ("00" + (dt.getMonth()+1)).slice(-2);
+//   var d = ("00" + dt.getDate()).slice(-2);
+//   var today = y + "/" + m + "/" + d;
+//   // 取得したドキュメントのuserIdを格納する
+//     var result =
+//     await admin
+//     .firestore()
+//     .collection("subscriptionMember")
+//     .where("endDay", "==", today) 
+//     .get()
+//     // eslint-disable-next-line promise/always-return
+//     .then(snapshot => {
+//       snapshot.forEach(doc => {
+//         admin
+//         .firestore()
+//         .collection("fanPages")
+//         .doc(doc.data().fanPage)
+//         .collection("members")
+//         .doc(doc.data().userId)
+//         .delete();
+//         console.log("Deletion done!")
+//       });
+//     }).catch(error => {
+//       console.log(error)
+//     });
+// });

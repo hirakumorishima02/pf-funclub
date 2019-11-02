@@ -5,7 +5,6 @@ import Link from "next/link";
 import React, { useEffect, useState }  from 'react'; 
 import { useRouter } from 'next/router'
 
-
 const MemberOnly = props => {
   const [postsState, setPostsState] = useState([]);
   const [ownerState, setOwnerState] = useState([]);
@@ -29,7 +28,7 @@ const MemberOnly = props => {
   }
   fetchData();
 
-  async function fetchOwner() {
+  async function fetchOwnerAndTitle() {
     const result = 
     await 
     db.collection("fanPages")
@@ -37,15 +36,16 @@ const MemberOnly = props => {
     .get()
     .then(snapshot => {
       let ownerId = snapshot.data().userId;
-      setOwnerState(ownerId)
+      let pageName = snapshot.data().pageName;
+      setOwnerState({ownerId,pageName})
     });
   }
-  fetchOwner()
+  fetchOwnerAndTitle()
   }, []);
 
   return (
     <>
-      <h1>pages/posts/index</h1>
+      <h1>{ownerState.pageName}</h1>
       <ul>
         {postsState.map(post => {
           return (
@@ -73,7 +73,7 @@ const MemberOnly = props => {
         })}
       </ul>
       <p>
-        {props.currentUser.uid == ownerState ? (
+        {props.currentUser.uid == ownerState.ownerId ? (
           <Link
             href="/p/[fanpage]/add"
             as={`/p/${router.query.fanpage}/add`}

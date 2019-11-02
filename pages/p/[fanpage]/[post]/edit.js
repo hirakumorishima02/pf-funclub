@@ -1,9 +1,10 @@
 import { db } from "../../../../lib/db";
 import Link from "next/link";
 import { useState } from "react";
-
+import { useRouter } from 'next/router'
 
 const PostEditPage = ({ post }) => {
+  const router = useRouter()
   const [postState, setPostState] = useState({
     id: post.id,
     title: post.title,
@@ -30,9 +31,9 @@ const PostEditPage = ({ post }) => {
     try {
       await
       db.collection("fanPages")
-      .doc("tDL9HvH3jXppwA95CRy1")
+      .doc(router.query.fanpage)
       .collection("posts")
-      .doc("m53r106Fg0nrkxNnvfTZ")
+      .doc(router.query.post)
         .set({
           title: postState.title,
           body: postState.body,

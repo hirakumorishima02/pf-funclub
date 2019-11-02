@@ -22,8 +22,8 @@ export default class Detail extends React.Component {
         };
     }
 
-    componentDidMount() {
-        auth.onAuthStateChanged(authUser => {
+    async componentDidMount() {
+        await auth.onAuthStateChanged(authUser => {
             if (authUser) {
               const state = Object.assign(this.state, {
                 stripe: window.Stripe(process.env.stripeKey),
