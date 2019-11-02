@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
+import Header          from '../components/shared/Header';
+import Footer          from '../components/shared/Footer';
 
 import {firebase} from '../lib/db.js';
 require("firebase/functions");
@@ -41,6 +43,7 @@ class ContactForm extends Component {
 
     return (
       <React.Fragment>
+        <Header />
         <div style={contactForm}>
           <h2>お問い合わせ</h2>
           <form onSubmit={this.onSubmit}>
@@ -61,6 +64,7 @@ class ContactForm extends Component {
             </Button>
           </form>
         </div>
+        <Footer />
       </React.Fragment>
     )
   }   

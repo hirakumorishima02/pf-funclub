@@ -2,6 +2,9 @@ import withAuthMember from "../../../lib/helpers/withAuthMember";
 import { db } from '../../../lib/db';
 import Link from "next/link";
 
+import Header          from '../../../components/shared/Header';
+import Footer          from '../../../components/shared/Footer';
+
 import React, { useEffect, useState }  from 'react'; 
 import { useRouter } from 'next/router'
 
@@ -45,6 +48,7 @@ const MemberOnly = props => {
 
   return (
     <>
+    <Header />
       <h1>{ownerState.pageName}</h1>
       <ul>
         {postsState.map(post => {
@@ -84,6 +88,7 @@ const MemberOnly = props => {
           ""
         )}
       </p>
+      <Footer />
     </>
   );
 };
