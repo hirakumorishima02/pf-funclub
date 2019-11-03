@@ -50,6 +50,18 @@ const MemberOnly = props => {
     <>
     <Header />
       <h1>{ownerState.pageName}</h1>
+      <p>
+        {props.currentUser.uid == ownerState.ownerId ? (
+          <Link
+            href="/p/[fanpage]/add"
+            as={`/p/${router.query.fanpage}/add`}
+          >
+            <a>ADD POST</a>
+          </Link>
+        ) : (
+          ""
+        )}
+      </p>
       <ul>
         {postsState.map(post => {
           return (
@@ -76,18 +88,6 @@ const MemberOnly = props => {
           );
         })}
       </ul>
-      <p>
-        {props.currentUser.uid == ownerState.ownerId ? (
-          <Link
-            href="/p/[fanpage]/add"
-            as={`/p/${router.query.fanpage}/add`}
-          >
-            <a>ADD POST</a>
-          </Link>
-        ) : (
-          ""
-        )}
-      </p>
       <Footer />
     </>
   );

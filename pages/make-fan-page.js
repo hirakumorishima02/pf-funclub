@@ -7,8 +7,8 @@ import { auth } from "../lib/db";
 import Header from '../components/shared/Header';
 import Footer from '../components/shared/Footer';
 
-
 class MakeFunPage extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -42,13 +42,13 @@ class MakeFunPage extends React.Component {
             monthlyFee: this.state.monthlyFee,
             category  : this.state.category,
             userId    : this.state.userId
-
         })
         .then(function() {
-            console.log("Document successfully written!");
+            alert(`ファンページが作成されました。`);
         })
         .catch(function(error) {
-            console.error("Error writing document: ", error);
+            // console.error("Error writing document: ", error);
+            alert(`ファンページが作成されませんでした。もう1度やり直してください。`);
         });
     }
     onChangePagename    = (evt) => {

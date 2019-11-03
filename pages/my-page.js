@@ -46,30 +46,6 @@ const MyPage = () => {
                     <li>{user.displayName}</li>
                     <li>{user.email}</li>
                 </ul>
-
-                <h4>登録中のファンページ</h4>
-                <Table classNmae={classes.table}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>ファンページ名</TableCell>
-                            <TableCell>解約ボタン</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell>〇〇ファンクラブ</TableCell>
-                            <TableCell><button>解約</button></TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>〇〇のために頑張る会</TableCell>
-                            <TableCell><button>解約</button></TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>FC 〇〇</TableCell>
-                            <TableCell><button>解約</button></TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
                 <Footer />
             </>
         </div>

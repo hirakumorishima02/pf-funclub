@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useState } from "react";
 import withAuth from "../../../lib/helpers/withAuth";
 import { useRouter } from 'next/router'
+import Header          from '../../../components/shared/Header';
+import Footer          from '../../../components/shared/Footer';
 
 const PostEditPage = props => {
   const router = useRouter()
@@ -40,18 +42,19 @@ const PostEditPage = props => {
         createdBy: postState.createdBy
       });
 
-      alert(`success to create a post: ${postState.title}`);
+      alert(`投稿しました。: ${postState.title}`);
     } catch (e) {
       console.log(e.message);
-      alert(`Oops, fail to create a post : ${postState.title} `);
+      alert(`投稿が失敗しました。 : ${postState.title} `);
     }
   };
 
   return (
     <>
-      <h1>pages/posts/[post]/edit</h1>
-      <Link href="/posts">
-        <a>Go Back to Posts List</a>
+      <Header />
+      <h1>投稿</h1>
+      <Link href="/p/[fanpage]/member-only" as={`/p/${router.query.fanpage}/member-only`}>
+        <a>ファンページに戻る</a>
       </Link>
       <h2>POST DETAIL</h2>
       <ul>
@@ -74,6 +77,7 @@ const PostEditPage = props => {
       <button type="submit" onClick={handleSubmit}>
         ADD
       </button>
+      <Footer />
     </>
   );
 };

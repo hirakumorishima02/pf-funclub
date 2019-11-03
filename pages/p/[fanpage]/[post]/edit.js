@@ -1,5 +1,7 @@
 import { db } from "../../../../lib/db";
 import Link from "next/link";
+import Header          from '../../../../components/shared/Header';
+import Footer          from '../../../../components/shared/Footer';
 import { useState } from "react";
 import { useRouter } from 'next/router'
 
@@ -40,18 +42,19 @@ const PostEditPage = ({ post }) => {
           createdBy: postState.createdBy
         });
 
-      alert(`${postState.id} has been updated`);
+      alert(`${postState.title} が編集されました。`);
     } catch (e) {
       console.log(e.message);
-      alert(`Oops, ${postState.id} has not been updated`);
+      alert(`${postState.title} は編集されませんでした。もう一度、編集し直してください。`);
     }
   };
 
   return (
     <>
-      <h1>pages/posts/[post]/edit</h1>
-      <Link href="/posts">
-        <a>Go Back to Posts List</a>
+      <Header />
+      <h1>編集</h1>
+      <Link href="/p/[fanpage]/member-only" as={`/p/${router.query.fanpage}/member-only`}>
+        <a>ファンページに戻る</a>
       </Link>
       <h2>POST DETAIL</h2>
       <ul>
@@ -74,6 +77,7 @@ const PostEditPage = ({ post }) => {
       <button type="submit" onClick={handleSubmit}>
         UPDATE
       </button>
+      <Footer />
     </>
   );
 };
